@@ -1,14 +1,9 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
+using System.Timers;
 using System.Windows.Forms;
+using Timer = System.Timers.Timer;
 
 namespace TelemetryAppV2
 {
@@ -18,120 +13,212 @@ namespace TelemetryAppV2
 
         public event EventHandler ZalogujButtonClick;
 
-        private DBConnect _dbConnect;
-        private MySqlCommand _mySqlCommand;
+        private DBConnect _dbConnect = new DBConnect();
+        private FunkcjeGlobalne _funkcjeGlobalne = new FunkcjeGlobalne();
 
         public PanelLogowania()
         {
             InitializeComponent();
         }
 
+        private void PanelLogowania_Load(object sender, EventArgs e)
+        {
+            if (_funkcjeGlobalne.sprawdzPolaczenieInternetowe() == true)
+            {
+                _funkcjeGlobalne.LabelForeColor(statusLabel_Info, Color.Green);
+                _funkcjeGlobalne.LabelText(statusLabel_Info, "Online");
+            }
+            else
+            {
+                _funkcjeGlobalne.LabelForeColor(statusLabel, Color.Red);
+                _funkcjeGlobalne.LabelText(statusLabel, "Offline");
+                _funkcjeGlobalne.LabelForeColor(infoLabel, Color.Red);
+                _funkcjeGlobalne.LabelText(infoLabel, "Brak połączenia internetowego");
+                _funkcjeGlobalne.ButtonEnabled(zalogujButton, false);
+            }
+        }
+
         private void zalogujButton_Click(object sender, EventArgs e)
         {
-            if (loginBox.Text == "")
+            if (_funkcjeGlobalne.CzyTextBoxPusty(loginBox) == false)
             {
-                loginBox.BackColor = Color.Red;
-                infoLabel.ForeColor = Color.Red;
-                infoLabel.Text = "Uzupełnij wymagane pola";
+                _funkcjeGlobalne.TextBoxBackColor(loginBox, Color.Red);
+                _funkcjeGlobalne.LabelForeColor(infoLabel, Color.Red);
+                _funkcjeGlobalne.LabelText(infoLabel, "Uzupełnij wymagane pola");
+                _funkcjeGlobalne.ButtonEnabled(zalogujButton, false);
             }
-            if (hasloBox.Text == "")
+            if (_funkcjeGlobalne.CzyTextBoxPusty(hasloBox) == false)
             {
-                hasloBox.BackColor = Color.Red;
-                infoLabel.ForeColor = Color.Red;
-                infoLabel.Text = "Uzupełnij wymagane pola";
+                _funkcjeGlobalne.TextBoxBackColor(loginBox, Color.Red);
+                _funkcjeGlobalne.LabelForeColor(infoLabel, Color.Red);
+                _funkcjeGlobalne.LabelText(infoLabel, "Uzupełnij wymagane pola");
+                _funkcjeGlobalne.ButtonEnabled(zalogujButton, false);
             }
-            if (loginBox.Text != "" && hasloBox.Text != "")
+            if (_funkcjeGlobalne.CzyTextBoxPusty(loginBox) == true && _funkcjeGlobalne.CzyTextBoxPusty(hasloBox) == true)
             {
                 string login = loginBox.Text;
                 string haslo = hasloBox.Text;
-                if (sprawdzLogin(login) == 1 && sprawdzHaslo(haslo) == 1)
+                if (_dbConnect.sprawdzLogin(login) == 1 && _dbConnect.sprawdzHaslo(haslo) == 1)
                 {
                     if (ZalogujButtonClick != null)
                     {
-                        ZalogujButtonClick(this, e);
+                        if (_funkcjeGlobalne.CzyWlaczonySerwerTelemetrii() == true)
+                        {
+                            Timer JSONTimer = new Timer();
+                            JSONTimer.Elapsed += new ElapsedEventHandler(_funkcjeGlobalne.PrzypiszDaneTelemetrii);
+                            JSONTimer.Interval = 1000;
+                            JSONTimer.Enabled = true;
+                            ZmienneGlobalne.User.login = loginBox.Text;
+                            ZalogujButtonClick(this, EventArgs.Empty);
+                        }
+                        else
+                        {
+                            _funkcjeGlobalne.LabelForeColor(infoLabel, Color.Red);
+                            _funkcjeGlobalne.LabelText(infoLabel, "Brak włączonego serwera telemetrii");
+                        }
                     }
                 }
                 else
                 {
-                    infoLabel.Text = "Wpisano zły login lub hasło";
+                    _funkcjeGlobalne.LabelText(infoLabel, "Wpisano zły login lub hasło");
                 }
             }
         }
 
-        public class User
+        private void loginBox_Click(object sender, EventArgs e)
         {
-            public string loginUser { get; set; }
-        }
-
-        private void PanelLogowania_Load(object sender, EventArgs e)
-        {
-            _dbConnect = new DBConnect();
-            _dbConnect.Open();
-        }
-
-        private bool CzyTextBoxPusty(TextBox nazwaTextBox)
-        {
-            bool wynik;
-            if (nazwaTextBox.Text.Length < 1)
+            if (_funkcjeGlobalne.CzyTextBoxPusty(loginBox) == true)
             {
-                nazwaTextBox.BackColor = Color.Red;
-                infoLabel.ForeColor = Color.Red;
-                infoLabel.Text = "Uzupełnij wymagane pola";
-                wynik = false;
+                _funkcjeGlobalne.ButtonEnabled(zalogujButton, true);
+                _funkcjeGlobalne.LabelText(infoLabel, "");
             }
             else
             {
-                nazwaTextBox.BackColor = Color.White;
-                infoLabel.Text = "";
-                wynik = true;
+                _funkcjeGlobalne.ButtonEnabled(zalogujButton, false);
+                _funkcjeGlobalne.LabelForeColor(infoLabel, Color.Red);
+                _funkcjeGlobalne.LabelText(infoLabel, "Uzupełnij wymagane pola");
             }
-            return wynik;
-        }
-
-        private void loginBox_Click(object sender, EventArgs e)
-        {
-            zalogujButton.Enabled = CzyTextBoxPusty(loginBox);
         }
 
         private void loginBox_DoubleClick(object sender, EventArgs e)
         {
-            zalogujButton.Enabled = CzyTextBoxPusty(loginBox);
+            if (_funkcjeGlobalne.CzyTextBoxPusty(loginBox) == true)
+            {
+                _funkcjeGlobalne.ButtonEnabled(zalogujButton, true);
+                _funkcjeGlobalne.LabelText(infoLabel, "");
+            }
+            else
+            {
+                _funkcjeGlobalne.ButtonEnabled(zalogujButton, false);
+                _funkcjeGlobalne.LabelForeColor(infoLabel, Color.Red);
+                _funkcjeGlobalne.LabelText(infoLabel, "Uzupełnij wymagane pola");
+            }
         }
 
         private void loginBox_TextChanged(object sender, EventArgs e)
         {
-            zalogujButton.Enabled = CzyTextBoxPusty(loginBox);
+            if (_funkcjeGlobalne.CzyTextBoxPusty(loginBox) == true)
+            {
+                _funkcjeGlobalne.ButtonEnabled(zalogujButton, true);
+                _funkcjeGlobalne.LabelText(infoLabel, "");
+            }
+            else
+            {
+                _funkcjeGlobalne.ButtonEnabled(zalogujButton, false);
+                _funkcjeGlobalne.LabelForeColor(infoLabel, Color.Red);
+                _funkcjeGlobalne.LabelText(infoLabel, "Uzupełnij wymagane pola");
+            }
+        }
+
+        private void loginBox_Enter(object sender, EventArgs e)
+        {
+            if (_funkcjeGlobalne.CzyTextBoxPusty(loginBox) == true)
+            {
+                _funkcjeGlobalne.ButtonEnabled(zalogujButton, true);
+                _funkcjeGlobalne.LabelText(infoLabel, "");
+            }
+            else
+            {
+                _funkcjeGlobalne.ButtonEnabled(zalogujButton, false);
+                _funkcjeGlobalne.LabelForeColor(infoLabel, Color.Red);
+                _funkcjeGlobalne.LabelText(infoLabel, "Uzupełnij wymagane pola");
+            }
+        }
+
+        private void loginBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                zalogujButton.PerformClick();
+            }
         }
 
         private void hasloBox_Click(object sender, EventArgs e)
         {
-            zalogujButton.Enabled = CzyTextBoxPusty(hasloBox);
+            if (_funkcjeGlobalne.CzyTextBoxPusty(hasloBox) == true)
+            {
+                _funkcjeGlobalne.ButtonEnabled(zalogujButton, true);
+                _funkcjeGlobalne.LabelText(infoLabel, "");
+            }
+            else
+            {
+                _funkcjeGlobalne.ButtonEnabled(zalogujButton, false);
+                _funkcjeGlobalne.LabelForeColor(infoLabel, Color.Red);
+                _funkcjeGlobalne.LabelText(infoLabel, "Uzupełnij wymagane pola");
+            }
         }
 
         private void hasloBox_DoubleClick(object sender, EventArgs e)
         {
-            zalogujButton.Enabled = CzyTextBoxPusty(hasloBox);
+            if (_funkcjeGlobalne.CzyTextBoxPusty(hasloBox) == true)
+            {
+                _funkcjeGlobalne.ButtonEnabled(zalogujButton, true);
+                _funkcjeGlobalne.LabelText(infoLabel, "");
+            }
+            else
+            {
+                _funkcjeGlobalne.ButtonEnabled(zalogujButton, false);
+                _funkcjeGlobalne.LabelForeColor(infoLabel, Color.Red);
+                _funkcjeGlobalne.LabelText(infoLabel, "Uzupełnij wymagane pola");
+            }
         }
 
         private void hasloBox_TextChanged(object sender, EventArgs e)
         {
-            zalogujButton.Enabled = CzyTextBoxPusty(hasloBox);
+            if (_funkcjeGlobalne.CzyTextBoxPusty(hasloBox) == true)
+            {
+                _funkcjeGlobalne.ButtonEnabled(zalogujButton, true);
+                _funkcjeGlobalne.LabelText(infoLabel, "");
+            }
+            else
+            {
+                _funkcjeGlobalne.ButtonEnabled(zalogujButton, false);
+                _funkcjeGlobalne.LabelForeColor(infoLabel, Color.Red);
+                _funkcjeGlobalne.LabelText(infoLabel, "Uzupełnij wymagane pola");
+            }
         }
 
-        private int sprawdzLogin(string login)
+        private void hasloBox_Enter(object sender, EventArgs e)
         {
-            string stm = "SELECT COUNT(login) FROM aso_users WHERE login = @login";
-            _mySqlCommand = new MySqlCommand(stm, _dbConnect.connection);
-            _mySqlCommand.Parameters.AddWithValue("@login", login);
-            return Convert.ToInt32(_mySqlCommand.ExecuteScalar());
+            if (_funkcjeGlobalne.CzyTextBoxPusty(hasloBox) == true)
+            {
+                _funkcjeGlobalne.ButtonEnabled(zalogujButton, true);
+                _funkcjeGlobalne.LabelText(infoLabel, "");
+            }
+            else
+            {
+                _funkcjeGlobalne.ButtonEnabled(zalogujButton, false);
+                _funkcjeGlobalne.LabelForeColor(infoLabel, Color.Red);
+                _funkcjeGlobalne.LabelText(infoLabel, "Uzupełnij wymagane pola");
+            }
         }
 
-        private int sprawdzHaslo(string haslo)
+        private void hasloBox_KeyDown(object sender, KeyEventArgs e)
         {
-            string stm = "SELECT COUNT(password) FROM aso_users WHERE password = @password";
-            _mySqlCommand = new MySqlCommand(stm, _dbConnect.connection);
-            _mySqlCommand.Parameters.AddWithValue("@password", haslo);
-            return Convert.ToInt32(_mySqlCommand.ExecuteScalar());
+            if (e.KeyCode == Keys.Enter)
+            {
+                zalogujButton.PerformClick();
+            }
         }
     }
 }

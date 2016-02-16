@@ -37,7 +37,7 @@
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(3, 3);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(240, 150);
+            this.dataGridView1.Size = new System.Drawing.Size(334, 150);
             this.dataGridView1.TabIndex = 0;
             // 
             // PanelUzytkownika
@@ -48,7 +48,7 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.Controls.Add(this.dataGridView1);
             this.Name = "PanelUzytkownika";
-            this.Size = new System.Drawing.Size(246, 156);
+            this.Size = new System.Drawing.Size(340, 156);
             this.Load += new System.EventHandler(this.PanelUzytkownika_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);

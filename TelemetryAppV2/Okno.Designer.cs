@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Okno));
             this.menuOkno = new System.Windows.Forms.MenuStrip();
             this.plikToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -37,6 +38,7 @@
             this.twórcyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel2 = new System.Windows.Forms.Panel();
             this.mainPanel = new System.Windows.Forms.Panel();
+            this.trayIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.menuOkno.SuspendLayout();
             this.mainPanel.SuspendLayout();
             this.SuspendLayout();
@@ -63,7 +65,7 @@
             // zamknijProgramToolStripMenuItem
             // 
             this.zamknijProgramToolStripMenuItem.Name = "zamknijProgramToolStripMenuItem";
-            this.zamknijProgramToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.zamknijProgramToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
             this.zamknijProgramToolStripMenuItem.Text = "Zamknij";
             this.zamknijProgramToolStripMenuItem.Click += new System.EventHandler(this.zamknijProgramToolStripMenuItem_Click);
             // 
@@ -79,13 +81,13 @@
             // informacjeToolStripMenuItem
             // 
             this.informacjeToolStripMenuItem.Name = "informacjeToolStripMenuItem";
-            this.informacjeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.informacjeToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.informacjeToolStripMenuItem.Text = "Informacje";
             // 
             // twórcyToolStripMenuItem
             // 
             this.twórcyToolStripMenuItem.Name = "twórcyToolStripMenuItem";
-            this.twórcyToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.twórcyToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.twórcyToolStripMenuItem.Text = "Autorzy";
             this.twórcyToolStripMenuItem.Click += new System.EventHandler(this.twórcyToolStripMenuItem_Click);
             // 
@@ -108,6 +110,12 @@
             this.mainPanel.Name = "mainPanel";
             this.mainPanel.Size = new System.Drawing.Size(358, 354);
             this.mainPanel.TabIndex = 0;
+            // 
+            // trayIcon
+            // 
+            this.trayIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("trayIcon.Icon")));
+            this.trayIcon.Text = "GoldenLines TelemetryApp";
+            this.trayIcon.Visible = true;
             // 
             // Okno
             // 
@@ -144,6 +152,7 @@
         private System.Windows.Forms.Panel mainPanel;
         private System.Windows.Forms.ToolStripMenuItem informacjeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem twórcyToolStripMenuItem;
+        private System.Windows.Forms.NotifyIcon trayIcon;
 
 
 

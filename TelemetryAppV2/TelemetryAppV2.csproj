@@ -93,7 +93,6 @@
     <Compile Include="DBConnect.cs" />
     <Compile Include="FunkcjeGlobalne.cs" />
     <Compile Include="ZmienneGlobalne.cs" />
-    <Compile Include="JSON.cs" />
     <Compile Include="Okno.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -69,7 +69,7 @@ namespace TelemetryAppV2
                             JSONTimer.Interval = 1000;
                             JSONTimer.Enabled = true;
                             ZmienneGlobalne.User.login = loginBox.Text;
-                            ZalogujButtonClick(this, EventArgs.Empty);
+                            ZalogujButtonClick(this, e);
                         }
                         else
                         {

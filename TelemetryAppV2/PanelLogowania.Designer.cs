@@ -35,8 +35,8 @@
             this.hasloBox = new System.Windows.Forms.TextBox();
             this.loginBox = new System.Windows.Forms.TextBox();
             this.zalogujButton = new System.Windows.Forms.Button();
-            this.statusLabel = new System.Windows.Forms.Label();
             this.statusLabel_Info = new System.Windows.Forms.Label();
+            this.statusLabel = new System.Windows.Forms.Label();
             this.panelLogowaniaGroup.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -123,6 +123,15 @@
             this.zalogujButton.UseVisualStyleBackColor = true;
             this.zalogujButton.Click += new System.EventHandler(this.zalogujButton_Click);
             // 
+            // statusLabel_Info
+            // 
+            this.statusLabel_Info.AutoSize = true;
+            this.statusLabel_Info.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.statusLabel_Info.Location = new System.Drawing.Point(59, 4);
+            this.statusLabel_Info.Name = "statusLabel_Info";
+            this.statusLabel_Info.Size = new System.Drawing.Size(0, 19);
+            this.statusLabel_Info.TabIndex = 2;
+            // 
             // statusLabel
             // 
             this.statusLabel.AutoSize = true;
@@ -132,15 +141,6 @@
             this.statusLabel.Size = new System.Drawing.Size(49, 19);
             this.statusLabel.TabIndex = 1;
             this.statusLabel.Text = "Status:";
-            // 
-            // statusLabel_Info
-            // 
-            this.statusLabel_Info.AutoSize = true;
-            this.statusLabel_Info.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.statusLabel_Info.Location = new System.Drawing.Point(59, 4);
-            this.statusLabel_Info.Name = "statusLabel_Info";
-            this.statusLabel_Info.Size = new System.Drawing.Size(0, 19);
-            this.statusLabel_Info.TabIndex = 2;
             // 
             // PanelLogowania
             // 
@@ -170,7 +170,7 @@
         private System.Windows.Forms.Label loginLabel;
         private System.Windows.Forms.TextBox hasloBox;
         private System.Windows.Forms.TextBox loginBox;
-        private System.Windows.Forms.Label statusLabel;
         private System.Windows.Forms.Label statusLabel_Info;
+        private System.Windows.Forms.Label statusLabel;
     }
 }

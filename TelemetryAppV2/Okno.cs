@@ -22,7 +22,7 @@ namespace TelemetryAppV2
         {
             panelLogowania.Visible = false;
             PanelUzytkownika panelUzytkownika = new PanelUzytkownika();
-            panel2.Controls.Add(panelUzytkownika);
+            mainPanel.Controls.Add(panelUzytkownika);
         }
 
         private void zamknijProgramToolStripMenuItem_Click(object sender, EventArgs e)
@@ -32,6 +32,7 @@ namespace TelemetryAppV2
 
         private void twórcyToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            MessageBox.Show("Danix6");
         }
     }
 }

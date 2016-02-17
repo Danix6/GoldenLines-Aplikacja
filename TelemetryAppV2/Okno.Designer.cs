@@ -30,29 +30,43 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Okno));
-            this.menuOkno = new System.Windows.Forms.MenuStrip();
-            this.plikToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.zamknijProgramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.oProgramieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.informacjeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.twórcyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel2 = new System.Windows.Forms.Panel();
             this.mainPanel = new System.Windows.Forms.Panel();
             this.trayIcon = new System.Windows.Forms.NotifyIcon(this.components);
-            this.menuOkno.SuspendLayout();
+            this.plikToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.zamknijProgramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.oProgramieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.twórcyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuOkno = new System.Windows.Forms.MenuStrip();
             this.mainPanel.SuspendLayout();
+            this.menuOkno.SuspendLayout();
             this.SuspendLayout();
             // 
-            // menuOkno
+            // panel2
             // 
-            this.menuOkno.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.plikToolStripMenuItem,
-            this.oProgramieToolStripMenuItem});
-            this.menuOkno.Location = new System.Drawing.Point(0, 0);
-            this.menuOkno.Name = "menuOkno";
-            this.menuOkno.ShowItemToolTips = true;
-            this.menuOkno.Size = new System.Drawing.Size(358, 24);
-            this.menuOkno.TabIndex = 1;
+            this.panel2.AutoSize = true;
+            this.panel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panel2.Location = new System.Drawing.Point(4, 43);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(0, 0);
+            this.panel2.TabIndex = 1;
+            // 
+            // mainPanel
+            // 
+            this.mainPanel.AutoSize = true;
+            this.mainPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.mainPanel.Controls.Add(this.panel2);
+            this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mainPanel.Location = new System.Drawing.Point(0, 24);
+            this.mainPanel.Name = "mainPanel";
+            this.mainPanel.Size = new System.Drawing.Size(277, 226);
+            this.mainPanel.TabIndex = 0;
+            // 
+            // trayIcon
+            // 
+            this.trayIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("trayIcon.Icon")));
+            this.trayIcon.Text = "GoldenLines TelemetryApp";
+            this.trayIcon.Visible = true;
             // 
             // plikToolStripMenuItem
             // 
@@ -72,50 +86,28 @@
             // oProgramieToolStripMenuItem
             // 
             this.oProgramieToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.informacjeToolStripMenuItem,
             this.twórcyToolStripMenuItem});
             this.oProgramieToolStripMenuItem.Name = "oProgramieToolStripMenuItem";
             this.oProgramieToolStripMenuItem.Size = new System.Drawing.Size(86, 20);
             this.oProgramieToolStripMenuItem.Text = "O Programie";
             // 
-            // informacjeToolStripMenuItem
-            // 
-            this.informacjeToolStripMenuItem.Name = "informacjeToolStripMenuItem";
-            this.informacjeToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
-            this.informacjeToolStripMenuItem.Text = "Informacje";
-            // 
             // twórcyToolStripMenuItem
             // 
             this.twórcyToolStripMenuItem.Name = "twórcyToolStripMenuItem";
-            this.twórcyToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.twórcyToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
             this.twórcyToolStripMenuItem.Text = "Autorzy";
             this.twórcyToolStripMenuItem.Click += new System.EventHandler(this.twórcyToolStripMenuItem_Click);
             // 
-            // panel2
+            // menuOkno
             // 
-            this.panel2.AutoSize = true;
-            this.panel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.panel2.Location = new System.Drawing.Point(4, 43);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(0, 0);
-            this.panel2.TabIndex = 1;
-            // 
-            // mainPanel
-            // 
-            this.mainPanel.AutoSize = true;
-            this.mainPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.mainPanel.Controls.Add(this.panel2);
-            this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mainPanel.Location = new System.Drawing.Point(0, 24);
-            this.mainPanel.Name = "mainPanel";
-            this.mainPanel.Size = new System.Drawing.Size(358, 354);
-            this.mainPanel.TabIndex = 0;
-            // 
-            // trayIcon
-            // 
-            this.trayIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("trayIcon.Icon")));
-            this.trayIcon.Text = "GoldenLines TelemetryApp";
-            this.trayIcon.Visible = true;
+            this.menuOkno.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.plikToolStripMenuItem,
+            this.oProgramieToolStripMenuItem});
+            this.menuOkno.Location = new System.Drawing.Point(0, 0);
+            this.menuOkno.Name = "menuOkno";
+            this.menuOkno.ShowItemToolTips = true;
+            this.menuOkno.Size = new System.Drawing.Size(277, 24);
+            this.menuOkno.TabIndex = 1;
             // 
             // Okno
             // 
@@ -123,7 +115,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(358, 378);
+            this.ClientSize = new System.Drawing.Size(277, 250);
             this.Controls.Add(this.mainPanel);
             this.Controls.Add(this.menuOkno);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -133,10 +125,10 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "GoldenLines TelemetryApp";
             this.Load += new System.EventHandler(this.Okno_Load);
-            this.menuOkno.ResumeLayout(false);
-            this.menuOkno.PerformLayout();
             this.mainPanel.ResumeLayout(false);
             this.mainPanel.PerformLayout();
+            this.menuOkno.ResumeLayout(false);
+            this.menuOkno.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -144,15 +136,14 @@
 
         #endregion
 
-        private System.Windows.Forms.MenuStrip menuOkno;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel mainPanel;
+        private System.Windows.Forms.NotifyIcon trayIcon;
         private System.Windows.Forms.ToolStripMenuItem plikToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem zamknijProgramToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem oProgramieToolStripMenuItem;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Panel mainPanel;
-        private System.Windows.Forms.ToolStripMenuItem informacjeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem twórcyToolStripMenuItem;
-        private System.Windows.Forms.NotifyIcon trayIcon;
+        private System.Windows.Forms.MenuStrip menuOkno;
 
 
 
